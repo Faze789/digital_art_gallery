@@ -1,3 +1,6 @@
+import 'package:digital_art_gallery_app/hanfdicraft/handicraft_screen.dart';
+import 'package:digital_art_gallery_app/painting/painting_home_screen.dart';
+import 'package:digital_art_gallery_app/photography/photo_graphy_screen.dart';
 import 'package:flutter/material.dart';
 
 class art_screen extends StatefulWidget {
@@ -9,7 +12,7 @@ class _art_screenState extends State<art_screen> {
   final List<Color> colorPalette = [
     Colors.brown[900]!, // Dark brown
     Colors.brown[700]!, // Brown
-    Colors.brown[900]!, // Dark brown
+    Colors.brown[800]!, // Dark brown
     Colors.brown[500]!, // Medium brown
     Colors.grey[900]!, // Medium grey
     Colors.brown[300]!, // Light brown
@@ -22,6 +25,7 @@ class _art_screenState extends State<art_screen> {
       appBar: AppBar(
         title: const Text('Art Screen'),
         centerTitle: true,
+        backgroundColor: Colors.brown[900],
       ),
       body: Stack(
         children: [
@@ -68,25 +72,51 @@ class _art_screenState extends State<art_screen> {
                   imageName = 'handicraft';
                 }
 
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    color: colorPalette[index % colorPalette.length],
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image.asset(
-                          'assets/$imageName_url',
-                          width: 100,
-                          height: 100,
-                          fit: BoxFit.cover,
-                        ),
-                        SizedBox(height: 8.0),
-                        Text(
-                          imageName.toUpperCase(),
-                          style: const TextStyle(fontStyle: FontStyle.italic, fontSize: 12, color: Colors.white),
-                        ),
-                      ],
+                return InkWell(
+                  onTap: () {
+                    print('You tapped on $imageName_url $index');
+                    if (index == 0) {
+                      Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(builder: (context) => PaintingHomeScreen()),
+                        (Route<dynamic> route) => false,
+                      );
+                    } else if (index == 1) {
+                      Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(builder: (context) => photo_graphy_screen()),
+                        (Route<dynamic> route) => false,
+                      );
+                    } else if (index == 2) {
+                      // Navigator.of(context).pushAndRemoveUntil(
+                      //   MaterialPageRoute(builder: (context) => sketching_screen()),
+                      //   (Route<dynamic> route) => false,
+                      // );
+                    } else if (index == 3) {
+                      Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(builder: (context) => handicraft_screen()),
+                        (Route<dynamic> route) => false,
+                      );
+                    }
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      color: colorPalette[index % colorPalette.length],
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            'assets/$imageName_url',
+                            width: 100,
+                            height: 100,
+                            fit: BoxFit.cover,
+                          ),
+                          SizedBox(height: 8.0),
+                          Text(
+                            imageName.toUpperCase(),
+                            style: const TextStyle(fontStyle: FontStyle.italic, fontSize: 12, color: Colors.white),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 );
